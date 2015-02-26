@@ -25,9 +25,7 @@ var $ = $ || (function() {
     /* add some more jqueryness */
     dojo.extend(dojo.NodeList, {
 
-      ready: function() {
-        
-      },
+      ready: function() {},
 
       each: function() {
         var cb = arguments[0];
@@ -62,13 +60,13 @@ var $ = $ || (function() {
 
       fadeIn: function() {
         this.forEach(function(node) {
-          $(node).fadeIn().play();
+          dojo.fadeIn({node:node}).play();
         });        
       },
 
       fadeOut: function() {
         this.forEach(function(node) {
-          $(node).fadeOut().play();
+          dojo.fadeOut({node:node}).play();
         });
       }
 
