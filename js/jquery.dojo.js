@@ -19,8 +19,6 @@ var $ = $ || (function() {
     "dojo/NodeList-manipulate",
   ], function($) {
 
-    alert("init");
-
     /* make it look like jquery */
     window.$ = $;
 
@@ -28,7 +26,7 @@ var $ = $ || (function() {
     dojo.extend(dojo.NodeList, {
 
       ready: function() {
-        dojo.addOnLoad(arguments[0]);
+        
       },
 
       each: function() {
