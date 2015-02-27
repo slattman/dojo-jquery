@@ -144,12 +144,13 @@ define([
 		});
 	};
 
-	/* add even more jqueryness */
+	/* TODO: add even more jqueryness */
 	query.ajax;
 	query.get;
 	query.getScript;
 	query.post;
 
+	/* reference */
 	query.array = array;
 	query.lang = lang;
 	query.baseFx = baseFx;
