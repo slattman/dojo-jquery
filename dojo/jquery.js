@@ -37,67 +37,202 @@ define([
 	/* TODO: add a pinch of jquery, might need to tweak the recipe a bit */
 	lang.extend(NodeList, {
 
-		ready: ready,
+		/* attributes
+		prop: function() {},
+		removeProp: function() {},
+		val: function() {}, */
 
-		each: function(callback) {
-			this.forEach(function() {
-				return callback(arguments[0], arguments[1], arguments[2]);
-			});
-		},
+		/* ajax helpers
+		serialize: function() {},
+		serializeArray: function() {}, */
 
-		find: function(query) {
-			return this.query(query);
-		},
+		/* ajax events
+		ajaxComplete: function() {},
+		ajaxError: function() {},
+		ajaxSend: function() {},
+		ajaxStart: function() {},
+		ajaxStop: function() {},
+		ajaxSuccess: function() {}, */
 
-		show: function(node) {
-			return this.query(node).style("display", "block");
-		},
-
-		hide: function(node) {
-			return this.query(node).style("display", "none");
-		},
-
-		fadeIn: function() {
-			this.forEach(function(node) {
-				baseFx.fadeIn({node:node}).play();
-			});
-			return this;
-		},
-
-		fadeOut: function() {
-			this.forEach(function(node) {
-				baseFx.fadeOut({node:node}).play();
-			});
-			return this;
-		},
-
+		/* css */
 		css: function() {
 			if (typeof arguments[0] == "string")
 				this.style(arguments[0], arguments[1]);
 			if (typeof arguments[0] == "object") {}
 				this.style(arguments[0]);
 			return this;
-		},
+		},/*
+		hasClass: function() {},
+		height: function() {},
+		width: function() {},
+		innerHeight: function() {},
+		innerWidth: function() {},
+		offset: function() {},
+		offsetParent: function() {},
+		outerHeight: function() {},
+		outerWidth: function() {},
+		position: function() {},
+		scrollLeft: function() {},
+		scrollTop: function(){},*/
 
+		/* data
+		clearQueue: function() {},
+		dequeue: function() {},
+		queue: function() {},
+		removeData: function() {},*/
+
+		/* deferred
+		promise: function(){},*/
+
+		/* effects
+		animate: function(){},
+		delay: function(){},*/
+		fadeIn: function() {
+			this.forEach(function(node) {
+				baseFx.fadeIn({node:node}).play();
+			});
+			return this;
+		},
+		fadeOut: function() {
+			this.forEach(function(node) {
+				baseFx.fadeOut({node:node}).play();
+			});
+			return this;
+		},		
+		/*fadeTo: function(){},
+		fadeToggle: function(){},
+		finish: function(){},*/
+		hide: function(node) {
+			return this.query(node).style("display", "none");
+		},
+		show: function(node) {
+			return this.query(node).style("display", "block");
+		},
+		/*slideDown: function(){},
+		slideToggle: function(){},
+		slideUp: function(){},
+		stop: function(){},
+		toggle: function(){},*/
+
+		/* events
+		bind: function(){},
+		blur: function(){},
+		change: function(){},*/
 		click: function(callback) {
 			this.forEach(function(node) {
 				on(node, 'click', callback);
 			});
 			return this;
 		},
-		
+		/*dblclick: function(){},
+		delegate: function(){},
+		die: function(){},
+		error: function(){},
+		focus: function(){},
+		focusout: function(){},
+		hover: function(){},
+		keydown: function(){},
+		keypress: function(){},
+		keyup: function(){},
+		live: function(){},*/
 		load: function(callback) {
 			this.forEach(function(node) {
 				on(node, 'load', callback);
 			});
 			return this;
-		}
+		},
+		/*mousedown: function(){},
+		mouseenter: function(){},
+		mouseleave: function(){},
+		mouseout: function(){},
+		mouseover: function(){},
+		mouseup: function(){},
+		off: function(){},
+		on: function(){},
+		one: function(){},*/
+		ready: ready,
+		/*resize: function(){},
+		scroll: function(){},
+		select: function(){},
+		submit: function(){},
+		trigger: function(){},
+		triggerHandler: function(){},
+		unbind: function(){},
+		undelegate: function(){},
+		unload: function(){},*/
+		
+		/* internals
+		pushStack: function(){},*/
+
+		/* manipulation
+		detach: function(){},
+		replaceAll: function(){},
+		text: function(){},
+		unwrap: function(){},
+		wrap: function(){},
+		wrapAll: function(){},
+		wrapInner: function(){},*/
+		
+		/* miscellaneous
+		each: function(){},
+		get: function(){},
+		index: function(){},
+		size: function(){},
+		toArray: function(){},*/
+		
+		/* properties
+		length: function(){},
+		selector: function(){},*/
+
+		/* removed
+		die: function(){},
+		live: function(){},
+		toggle: function(){},*/
+
+		/* traversing
+		add: function(){},
+		addBack: function(){},
+		andSelf: function(){},
+		children: function(){},
+		closest: function(){},
+		content: function(){}, */
+		each: function(callback) {
+			this.forEach(function() {
+				return callback(arguments[0], arguments[1], arguments[2]);
+			});
+		},
+		/*end: function(){},
+		eq: function(){},
+		filter: function(){},*/
+		find: function(query) {
+			return this.query(query);
+		},
+		/*first: function(){},
+		has: function(){},
+		is: function(){},
+		last: function(){},
+		map: function(){},
+		next: function(){},
+		nextAll: function(){},
+		nextUntil: function(){},
+		not: function(){},
+		parent: function(){},
+		parents: function(){},
+		parentsUntil: function(){},
+		prev: function(){},
+		prevAll: function(){},
+		orevUntil: function(){},
+		siblings: function(){},
+		slice: function(){},*/
 
 	});
 
 	/* sizzle */
 	function queryForEngine(engine, NodeList){
 		var query = function(/*String*/ query, /*String|DOMNode?*/ root){
+
+			/* TODO: custom psuedo selectors */
+
 			if(typeof root == "string"){
 				root = dom.byId(root);
 				if(!root){
@@ -129,10 +264,143 @@ define([
 	var query = queryForEngine(defaultEngine, NodeList);
 
 	/* TODO: add salt and pepper for taste */
-	query.ajax;
-	query.get;
-	query.getScript;
-	query.post;
+	lang.extend(query, {
+
+		/* AJAX */
+
+		/* global ajax event handlers */
+
+		/* helper functions
+		param: function(){},*/
+
+		/* low level interface
+		ajax: function(){},
+		ajaxPrefilter: function(){},
+		ajaxSetup: function(){},
+		ajaxTransport: function(){},*/
+
+		/* shorthand methods
+		get: function(){},
+		getJSON: function(){},
+		getScript: function(){},
+		post: function(){},
+		load: function(){},*/
+
+		/* calbacks
+		Callbacks: function(){
+			return {
+				add: function(){},
+				disable: function(){},
+				disabled: function(){},
+				empty: function(){},
+				fire: function(){},
+				fired: function(){},
+				fireWith: function(){},
+				has: function(){},
+				lock: function(){},
+				locked: function(){},
+				remove: function(){}
+			}
+		},*/
+
+		/* core 
+		holdReady: function(){},
+		noConflict: function(){},
+		sub: function(){},
+		when: function(){},*/
+
+		/* css
+		cssHooks: function() {},*/
+
+		/* data
+		data: function() {},
+		dequeue: function() {},
+		hasData: function() {},
+		queue: function() {},
+		removeData: function() {},*/
+
+		/* deferred
+		Deferred: function(){
+			return {
+				always: function(){},
+				done: function(){},
+				fail: function(){},
+				isRejected: function(){}, // removed
+				isResolved: function(){}, // removed
+				notify: function(){},
+				notifyWith: function(){},
+				pipe: function(){},
+				progress: function(){},
+				promise: function(){},
+				reject: function(){},
+				rejectWith: function(){},
+				resolve: function(){},
+				resolveWith: function(){},
+				state: function(){},
+				then: function(){}
+			}
+		},*/
+
+		/* events
+		proxy: function(){},*/
+
+		/* internals
+		fn: function() {
+			return {
+				jquery: 2
+			}
+		},
+		error: function(){},*/
+		
+		/* properties
+		browser: function(){},
+		support: function(){},*/
+
+		/* fx
+		fx: function(){
+			return {
+				interval: null,
+				off: null
+				extend: function(){},
+			}
+		}*/
+
+		/* removed
+		boxModel: function(){},		
+		browser: function(){},
+		sub: function(){},
+		selector: function(){},*/
+
+		/* utilities
+		contains: function(){},
+		extend: function(){},
+		globalEval: function(){},
+		grep: function(){},
+		inArray: function(){},
+		isArray: function(){},
+		isEmptyObject: function(){},
+		isFunction: function(){},
+		isNumeric: function(){},
+		isPlainObject: function(){},
+		isWindow: function(){},
+		isXMLDoc: function(){},
+		makeArray: function(){},
+		map: function(){},
+		merge: function(){},
+		noop: function(){},
+		now: function(){},
+		parseHTML: function(){},
+		parseJSON: function(){},
+		parseXML: function(){},
+		proxy: function(){},
+		queue: function(){},
+		removeData: function(){},
+		support: function(){},
+		trim: function(){},
+		type: function(){},
+		unique: function(){},*/
+
+	});
 
 	/* dinners served */
 	return query;
