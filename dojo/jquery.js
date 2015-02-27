@@ -31,10 +31,10 @@ define([
 
 	"use strict";
 
-	/* copy the original NodeList */
+	/* get the ingredients */
 	var NodeList = dquery.NodeList;
 
-	/* add some more jqueryness */
+	/* add a pinch of jquery */
 	lang.extend(NodeList, {
 
 		ready: ready,
@@ -60,38 +60,45 @@ define([
 
 		show: function() {
 			this.forEach(function(node) {
-				dquery(node).style("display", "block");
+				return dquery(node).style("display", "block");
 			});
 		},
 
 		hide: function() {
 			this.forEach(function(node) {
-				dquery(node).style("display", "none");
+				return dquery(node).style("display", "none");
 			});
 		},
 
 		fadeIn: function() {
 			this.forEach(function(node) {
-				baseFx.fadeIn({node:node}).play();
+				return baseFx.fadeIn({node:node}).play();
 			});
 		},
 
 		fadeOut: function() {
 			this.forEach(function(node) {
-				baseFx.fadeOut({node:node}).play();
+				return baseFx.fadeOut({node:node}).play();
 			});
 		},
 
 		click: function() {
 			var cb = arguments[0];
 			this.forEach(function(node) {
-				on.click(node, cb);
+				return on.click(node, cb);
 			});
-		}
+		}/*,
+		
+		load: function() {
+			/var cb = arguments[0];
+			this.forEach(function(node) {
+				return on.load(node, cb);
+			});			
+		}*/
 
 	});
 
-	/* look familiar? sizzle me baby! */
+	/* sizzle */
 	function queryForEngine(engine, NodeList){
 		var query = function(/*String*/ query, /*String|DOMNode?*/ root){
 			if(typeof root == "string"){
@@ -123,25 +130,15 @@ define([
 		}
 		return query;
 	}
-
 	var query = queryForEngine(defaultEngine, NodeList);
 
-	/* TODO: alot */
+	/* TODO: add salt and pepper for taste */
 	query.ajax;
 	query.get;
 	query.getScript;
 	query.post;
 
-	/* reference */
-	query.array = array;
-	query.lang = lang;
-	query.baseFx = baseFx;
-	query.has = has;
-	query.dom = dom;
-	query.construct = construct;
-	query.on = on;
-	query.fx = fx;
-
+	/* dinners served */
 	return query;
 
 });
