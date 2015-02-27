@@ -261,6 +261,7 @@ define([
 		}
 		return query;
 	}
+	
 	var query = queryForEngine(defaultEngine, NodeList);
 
 	/* TODO: add salt and pepper for taste */
