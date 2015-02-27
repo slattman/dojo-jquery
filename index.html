@@ -6,9 +6,15 @@
   <body>
     <h1>It works!</h1>
     <script>
-        var $ = $ || (function() {
-          require(["./dojo/jquery"], function($) { window.$ = $; });
-        })();
+        require(["./dojo/jquery"], function($) {
+          window.$ = $;
+          $(document).ready(function() {
+            /* do something */
+          });
+          $(function() {
+            /* do something shorthand */
+          });
+        });
     </script>
   </body>
 </html>

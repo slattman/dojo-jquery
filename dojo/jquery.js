@@ -9,12 +9,16 @@
 
 define([
 	"dojo/_base/kernel", 
+	"dojo/_base/array", 
+	"dojo/_base/lang", 
+	"dojo/_base/fx", 
+	"dojo/ready", 
 	"dojo/query", 
 	"dojo/has", 
 	"dojo/dom", 
+	"dojo/dom-construct",
 	"dojo/on", 
-	"dojo/_base/array", 
-	"dojo/_base/lang", 
+	"dojo/fx", 
 	"dojo/selector/_loader", 
 	"dojo/selector/_loader!default",
 	"dojo/NodeList-dom", 
@@ -23,7 +27,7 @@ define([
 	"dojo/NodeList-data", 
 	"dojo/NodeList-traverse", 
 	"dojo/NodeList-manipulate",
-], function(dojo, dquery, has, dom, on, array, lang, loader, defaultEngine){
+], function(dojo, array, lang, baseFx, ready, dquery, has, dom, construct, on, fx, loader, defaultEngine){
 
 	"use strict";
 
@@ -33,7 +37,7 @@ define([
 	/* add some more jqueryness */
 	lang.extend(NodeList, {
 
-      ready: function() {},
+      ready: ready,
 
       each: function() {
         var cb = arguments[0];
@@ -47,7 +51,7 @@ define([
             list = []
         ;
         this.forEach(function() {
-          list.push($(arguments[0]).query(find));
+          list.push(dquery(arguments[0]).query(find));
         });
         if (list.length > 1)
           return list;
@@ -56,25 +60,32 @@ define([
 
       show: function() {
         this.forEach(function(node) {
-          $(node).style("display", "block");
+          dquery(node).style("display", "block");
         });
       },
 
       hide: function() {
         this.forEach(function(node) {
-          $(node).style("display", "none");
+          dquery(node).style("display", "none");
         });
       },
 
       fadeIn: function() {
         this.forEach(function(node) {
-          dojo.fadeIn({node:node}).play();
+          baseFx.fadeIn({node:node}).play();
         });        
       },
 
       fadeOut: function() {
         this.forEach(function(node) {
-          dojo.fadeOut({node:node}).play();
+          baseFx.fadeOut({node:node}).play();
+        });
+      },
+
+      click: function() {
+        var cb = arguments[0];
+        this.forEach(function(node) {
+          on.click(node, cb);
         });
       }
 
@@ -87,6 +98,15 @@ define([
 				root = dom.byId(root);
 				if(!root){
 					return new NodeList([]);
+				}
+			}
+			if (typeof query == "function") {
+				return ready(query);
+			}
+			if (typeof query == "string") {
+				if (query.match("<")) {
+					var node = construct.toDom(query);
+					return new NodeList(node);
 				}
 			}
 			var results = typeof query == "string" ? engine(query, root) : query ? (query.end && query.on) ? query : [query] : [];
@@ -123,6 +143,21 @@ define([
 			loaded(queryForEngine(engine, NodeList));
 		});
 	};
+
+	/* add even more jqueryness */
+	query.ajax;
+	query.get;
+	query.getScript;
+	query.post;
+
+	query.array = array;
+	query.lang = lang;
+	query.baseFx = baseFx;
+	query.has = has;
+	query.dom = dom;
+	query.construct = construct;
+	query.on = on;
+	query.fx = fx;
 
 	dojo._filterQueryResult = query._filterResult = function(nodes, selector, root){
 		return new NodeList(query.filter(nodes, selector, root));
