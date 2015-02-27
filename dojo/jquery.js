@@ -37,57 +37,57 @@ define([
 	/* add some more jqueryness */
 	lang.extend(NodeList, {
 
-      ready: ready,
+		ready: ready,
 
-      each: function() {
-        var cb = arguments[0];
-        this.forEach(function() {
-          return cb(arguments[0], arguments[1], arguments[2]);
-        });
-      },
+		each: function() {
+			var cb = arguments[0];
+			this.forEach(function() {
+				return cb(arguments[0], arguments[1], arguments[2]);
+			});
+		},
 
-      find: function() {
-        var find = arguments[0],
-            list = []
-        ;
-        this.forEach(function() {
-          list.push(dquery(arguments[0]).query(find));
-        });
-        if (list.length > 1)
-          return list;
-        return list[0];
-      },
+		find: function() {
+			var find = arguments[0],
+				list = []
+			;
+			this.forEach(function() {
+				list.push(dquery(arguments[0]).query(find));
+			});
+			if (list.length > 1)
+				return list;
+			return list[0];
+		},
 
-      show: function() {
-        this.forEach(function(node) {
-          dquery(node).style("display", "block");
-        });
-      },
+		show: function() {
+			this.forEach(function(node) {
+				dquery(node).style("display", "block");
+			});
+		},
 
-      hide: function() {
-        this.forEach(function(node) {
-          dquery(node).style("display", "none");
-        });
-      },
+		hide: function() {
+			this.forEach(function(node) {
+				dquery(node).style("display", "none");
+			});
+		},
 
-      fadeIn: function() {
-        this.forEach(function(node) {
-          baseFx.fadeIn({node:node}).play();
-        });        
-      },
+		fadeIn: function() {
+			this.forEach(function(node) {
+				baseFx.fadeIn({node:node}).play();
+			});
+		},
 
-      fadeOut: function() {
-        this.forEach(function(node) {
-          baseFx.fadeOut({node:node}).play();
-        });
-      },
+		fadeOut: function() {
+			this.forEach(function(node) {
+				baseFx.fadeOut({node:node}).play();
+			});
+		},
 
-      click: function() {
-        var cb = arguments[0];
-        this.forEach(function(node) {
-          on.click(node, cb);
-        });
-      }
+		click: function() {
+			var cb = arguments[0];
+			this.forEach(function(node) {
+				on.click(node, cb);
+			});
+		}
 
 	});
 
