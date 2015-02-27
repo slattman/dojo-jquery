@@ -61,8 +61,8 @@ define([
 			if (typeof arguments[0] == "object") {}
 				this.style(arguments[0]);
 			return this;
-		},/*
-		hasClass: function() {},
+		},
+		/*hasClass: function() {},
 		height: function() {},
 		width: function() {},
 		innerHeight: function() {},
@@ -264,143 +264,136 @@ define([
 	var query = queryForEngine(defaultEngine, NodeList);
 
 	/* TODO: add salt and pepper for taste */
-	lang.extend(query, {
 
-		/* AJAX */
+	/* helper functions */
+	query.param = function(){};
 
-		/* global ajax event handlers */
+	/* low level interface */
+	query.ajax = function(){};
+	query.ajaxPrefilter = function(){};
+	query.ajaxSetup = function(){};
+	query.ajaxTransport = function(){};
 
-		/* helper functions
-		param: function(){},*/
+	/* shorthand methods */
+	query.get = function(){};
+	query.getJSON = function(){};
+	query.getScript = function(){};
+	query.post = function(){};
+	query.load = function(){};
 
-		/* low level interface
-		ajax: function(){},
-		ajaxPrefilter: function(){},
-		ajaxSetup: function(){},
-		ajaxTransport: function(){},*/
+	/* calbacks */
+	query.Callbacks = function(){
+		return {
+			add: function(){},
+			disable: function(){},
+			disabled: function(){},
+			empty: function(){},
+			fire: function(){},
+			fired: function(){},
+			fireWith: function(){},
+			has: function(){},
+			lock: function(){},
+			locked: function(){},
+			remove: function(){}
+		}
+	};
 
-		/* shorthand methods
-		get: function(){},
-		getJSON: function(){},
-		getScript: function(){},
-		post: function(){},
-		load: function(){},*/
+	/* core */
+	query.holdReady = function(){};
+	query.noConflict = function(){};
+	query.sub = function(){};
+	query.when = function(){};
 
-		/* calbacks
-		Callbacks: function(){
-			return {
-				add: function(){},
-				disable: function(){},
-				disabled: function(){},
-				empty: function(){},
-				fire: function(){},
-				fired: function(){},
-				fireWith: function(){},
-				has: function(){},
-				lock: function(){},
-				locked: function(){},
-				remove: function(){}
-			}
-		},*/
+	/* css */
+	query.cssHooks = function(){};
 
-		/* core 
-		holdReady: function(){},
-		noConflict: function(){},
-		sub: function(){},
-		when: function(){},*/
+	/* data */
+	query.data = function() {};
+	query.dequeue = function() {};
+	query.hasData = function() {};
+	query.queue = function() {};
+	query.removeData = function() {};
 
-		/* css
-		cssHooks: function() {},*/
+	/* deferred */
+	query.Deferred = function(){
+		return {
+			always: function(){},
+			done: function(){},
+			fail: function(){},
+			isRejected: function(){}, // removed
+			isResolved: function(){}, // removed
+			notify: function(){},
+			notifyWith: function(){},
+			pipe: function(){},
+			progress: function(){},
+			promise: function(){},
+			reject: function(){},
+			rejectWith: function(){},
+			resolve: function(){},
+			resolveWith: function(){},
+			state: function(){},
+			then: function(){}
+		}
+	};
 
-		/* data
-		data: function() {},
-		dequeue: function() {},
-		hasData: function() {},
-		queue: function() {},
-		removeData: function() {},*/
+	/* events */
+	query.proxy = function(){};
 
-		/* deferred
-		Deferred: function(){
-			return {
-				always: function(){},
-				done: function(){},
-				fail: function(){},
-				isRejected: function(){}, // removed
-				isResolved: function(){}, // removed
-				notify: function(){},
-				notifyWith: function(){},
-				pipe: function(){},
-				progress: function(){},
-				promise: function(){},
-				reject: function(){},
-				rejectWith: function(){},
-				resolve: function(){},
-				resolveWith: function(){},
-				state: function(){},
-				then: function(){}
-			}
-		},*/
+	/* internals */
+	query.fn = function() {
+		return {
+			jquery: 2
+		}
+	};
+	query.error = function(){};
+	
+	/* properties */
+	query.browser = function(){};
+	query.support = function(){};
 
-		/* events
-		proxy: function(){},*/
+	/* fx */
+	query.fx = function(){
+		return {
+			interval: null,
+			off: null,
+			extend: function(){}
+		}
+	},
 
-		/* internals
-		fn: function() {
-			return {
-				jquery: 2
-			}
-		},
-		error: function(){},*/
-		
-		/* properties
-		browser: function(){},
-		support: function(){},*/
+	/* removed */
+	query.boxModel = function(){};		
+	query.browser = function(){};
+	query.sub = function(){};
+	query.selector = function(){};
 
-		/* fx
-		fx: function(){
-			return {
-				interval: null,
-				off: null
-				extend: function(){},
-			}
-		}*/
-
-		/* removed
-		boxModel: function(){},		
-		browser: function(){},
-		sub: function(){},
-		selector: function(){},*/
-
-		/* utilities
-		contains: function(){},
-		extend: function(){},
-		globalEval: function(){},
-		grep: function(){},
-		inArray: function(){},
-		isArray: function(){},
-		isEmptyObject: function(){},
-		isFunction: function(){},
-		isNumeric: function(){},
-		isPlainObject: function(){},
-		isWindow: function(){},
-		isXMLDoc: function(){},
-		makeArray: function(){},
-		map: function(){},
-		merge: function(){},
-		noop: function(){},
-		now: function(){},
-		parseHTML: function(){},
-		parseJSON: function(){},
-		parseXML: function(){},
-		proxy: function(){},
-		queue: function(){},
-		removeData: function(){},
-		support: function(){},
-		trim: function(){},
-		type: function(){},
-		unique: function(){},*/
-
-	});
+	/* utilities */
+	query.contains = function(){};
+	query.extend = function(){};
+	query.globalEval = function(){};
+	query.grep = function(){};
+	query.inArray = function(){};
+	query.isArray = function(){};
+	query.isEmptyObject = function(){};
+	query.isFunction = function(){};
+	query.isNumeric = function(){};
+	query.isPlainObject = function(){};
+	query.isWindow = function(){};
+	query.isXMLDoc = function(){};
+	query.makeArray = function(){};
+	query.map = function(){};
+	query.merge = function(){};
+	query.noop = function(){};
+	query.now = function(){};
+	query.parseHTML = function(){};
+	query.parseJSON = function(){};
+	query.parseXML = function(){};
+	query.proxy = function(){};
+	query.queue = function(){};
+	query.removeData = function(){};
+	query.support = function(){};
+	query.trim = function(){};
+	query.type = function(){};
+	query.unique = function(){};
 
 	/* dinners served */
 	return query;
