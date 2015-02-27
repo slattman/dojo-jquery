@@ -134,10 +134,6 @@ define([
 
 	var query = queryForEngine(defaultEngine, NodeList);
 
-	dojo.query = queryForEngine(defaultEngine, function(array){
-		return NodeList(array);
-	});
-
 	query.load = function(id, parentRequire, loaded){
 		loader.load(id, parentRequire, function(engine){
 			loaded(queryForEngine(engine, NodeList));
@@ -159,12 +155,6 @@ define([
 	query.construct = construct;
 	query.on = on;
 	query.fx = fx;
-
-	dojo._filterQueryResult = query._filterResult = function(nodes, selector, root){
-		return new NodeList(query.filter(nodes, selector, root));
-	};
-
-	dojo.NodeList = query.NodeList = NodeList;
 
 	return query;
 
