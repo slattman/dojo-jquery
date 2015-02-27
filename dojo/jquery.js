@@ -26,7 +26,7 @@ define([
 	"dojo/NodeList-fx", 
 	"dojo/NodeList-data", 
 	"dojo/NodeList-traverse", 
-	"dojo/NodeList-manipulate",
+	"dojo/NodeList-manipulate"
 ], function(dojo, array, lang, baseFx, ready, dquery, has, dom, construct, on, fx, loader, defaultEngine){
 
 	"use strict";
@@ -34,7 +34,7 @@ define([
 	/* get the ingredients */
 	var NodeList = dquery.NodeList;
 
-	/* add a pinch of jquery */
+	/* TODO: add a pinch of jquery, might need to tweak the recipe a bit */
 	lang.extend(NodeList, {
 
 		ready: ready,
@@ -46,55 +46,53 @@ define([
 			});
 		},
 
-		find: function() {
-			var find = arguments[0],
-				list = []
-			;
-			this.forEach(function() {
-				list.push(dquery(arguments[0]).query(find));
-			});
-			if (list.length > 1)
-				return list;
-			return list[0];
+		find: function(query) {
+			return this.query(query);
 		},
 
-		show: function() {
-			this.forEach(function(node) {
-				return dquery(node).style("display", "block");
-			});
+		show: function(node) {
+			return this.query(node).style("display", "block");
 		},
 
-		hide: function() {
-			this.forEach(function(node) {
-				return dquery(node).style("display", "none");
-			});
+		hide: function(node) {
+			return this.query(node).style("display", "none");
 		},
 
 		fadeIn: function() {
 			this.forEach(function(node) {
-				return baseFx.fadeIn({node:node}).play();
+				baseFx.fadeIn({node:node}).play();
 			});
+			return this;
 		},
 
 		fadeOut: function() {
 			this.forEach(function(node) {
-				return baseFx.fadeOut({node:node}).play();
+				baseFx.fadeOut({node:node}).play();
 			});
+			return this;
 		},
 
-		click: function() {
-			var cb = arguments[0];
+		css: function() {
+			if (typeof arguments[0] == "string")
+				this.style(arguments[0], arguments[1]);
+			if (typeof arguments[0] == "object") {}
+				this.style(arguments[0]);
+			return this;
+		},
+
+		click: function(callback) {
 			this.forEach(function(node) {
-				return on.click(node, cb);
+				on(node, 'click', callback);
 			});
-		}/*,
+			return this;
+		},
 		
-		load: function() {
-			/var cb = arguments[0];
+		load: function(callback) {
 			this.forEach(function(node) {
-				return on.load(node, cb);
-			});			
-		}*/
+				on(node, 'load', callback);
+			});
+			return this;
+		}
 
 	});
 
@@ -107,9 +105,8 @@ define([
 					return new NodeList([]);
 				}
 			}
-			if (typeof query == "function") {
+			if (typeof query == "function")
 				return ready(query);
-			}
 			if (typeof query == "string") {
 				if (query.match("<")) {
 					var node = construct.toDom(query);

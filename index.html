@@ -1,18 +1,41 @@
+
 <!doctype html>
-<html>
+<html class="no-js" lang="">
   <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="//ajax.googleapis.com/ajax/libs/dojo/1.10.3/dojo/dojo.js"></script> 
   </head>
   <body>
-    <h1>It works!</h1>
+
+    <article>
+      <header>
+        <h1>It works!</h1>
+      </header>
+      <section>
+        <header></header>
+      </section>
+    </article>
     <script>
         require(["./dojo/jquery"], function($) {
           window.$ = $;
+          $("<h2>so does this</h2>").appendTo("section header");
           $(document).ready(function() {
             /* do something */
+            $("<h3>and this</h3>").css({color: "#333", opacity: 0}).appendTo("section").fadeIn();
           });
           $(function() {
             /* do something shorthand */
+            $("<h4>and even this</h4>").hide().appendTo("article");
+
+            $('<iframe/>').load(function() {
+                window.iframe = this;
+                console.log(this, arguments);
+              }).attr("src", "http://localhost").appendTo("body");
+
           });
         });
     </script>
