@@ -39,10 +39,9 @@ define([
 
 		ready: ready,
 
-		each: function() {
-			var cb = arguments[0];
+		each: function(callback) {
 			this.forEach(function() {
-				return cb(arguments[0], arguments[1], arguments[2]);
+				return callback(arguments[0], arguments[1], arguments[2]);
 			});
 		},
 
