@@ -115,14 +115,6 @@ define([
 			}
 			return new NodeList(results);
 		};
-		query.matches = engine.match || function(node, selector, root){
-			return query.filter([node], selector, root).length > 0;
-		};
-		query.filter = engine.filter || function(nodes, selector, root){
-			return query(selector, root).filter(function(node){
-				return array.indexOf(nodes, node) > -1;
-			});
-		};
 		if(typeof engine != "function"){
 			var search = engine.search;
 			engine = function(selector, root){
@@ -134,13 +126,7 @@ define([
 
 	var query = queryForEngine(defaultEngine, NodeList);
 
-	query.load = function(id, parentRequire, loaded){
-		loader.load(id, parentRequire, function(engine){
-			loaded(queryForEngine(engine, NodeList));
-		});
-	};
-
-	/* TODO: add even more jqueryness */
+	/* TODO: alot */
 	query.ajax;
 	query.get;
 	query.getScript;
