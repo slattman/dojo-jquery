@@ -16,6 +16,8 @@ define([
 	"dojo/query", 
 	"dojo/has", 
 	"dojo/dom", 
+	"dojo/dom-style",
+	"dojo/dom-class",
 	"dojo/dom-construct",
 	"dojo/on", 
 	"dojo/fx", 
@@ -27,20 +29,23 @@ define([
 	"dojo/NodeList-data", 
 	"dojo/NodeList-traverse", 
 	"dojo/NodeList-manipulate"
-], function(dojo, array, lang, baseFx, ready, dquery, has, dom, construct, on, fx, loader, defaultEngine){
+], function(dojo, array, lang, baseFx, ready, dquery, has, dom, style, cls, construct, on, fx, loader, defaultEngine){
 
 	"use strict";
 
 	/* get the ingredients */
 	var NodeList = dquery.NodeList;
 
-	/* TODO: add a pinch of jquery, might need to tweak the recipe a bit */
+	/* TODO: add a pinch of jquery, might need to tweak the recipe a bit :*/
 	lang.extend(NodeList, {
 
 		/* attributes
 		prop: function() {},
-		removeProp: function() {},
-		val: function() {}, */
+		removeProp: function() {},*/
+		val: function(val) {
+			if (val) this[0].value = val;
+			return this[0].value;
+		},
 
 		/* ajax helpers
 		serialize: function() {},
@@ -62,10 +67,20 @@ define([
 				this.style(arguments[0]);
 			return this;
 		},
-		/*hasClass: function() {},
-		height: function() {},
-		width: function() {},
-		innerHeight: function() {},
+		hasClass: function(clsName) {
+			for (var i in this)
+				if (cls.contains(this[i], clsName)) return true;
+			return false;
+		},
+		height: function(h) {
+			if (h) return this.style("height", h);
+			return this.style("height");
+		},
+		width: function(w) {
+			if (w) return this.style("width", w);
+			return this.style("width")[0];
+		},
+		/*innerHeight: function() {},
 		innerWidth: function() {},
 		offset: function() {},
 		offsetParent: function() {},
@@ -98,10 +113,17 @@ define([
 				baseFx.fadeOut({node:node}).play();
 			});
 			return this;
-		},		
-		/*fadeTo: function(){},
-		fadeToggle: function(){},
-		finish: function(){},*/
+		},
+		/*fadeTo: function(){},*/
+		fadeToggle: function(){
+			this.forEach(function(node) {
+				if (node.style.opacity == 1 || node.style.opacity == "") 
+					baseFx.fadeOut({node:node}).play();
+				else baseFx.fadeIn({node:node}).play();
+			});
+			return this;
+		},
+		/*finish: function(){},*/
 		hide: function(node) {
 			return this.query(node).style("display", "none");
 		},
@@ -261,7 +283,7 @@ define([
 		}
 		return query;
 	}
-	
+
 	var query = queryForEngine(defaultEngine, NodeList);
 
 	/* TODO: add salt and pepper for taste */

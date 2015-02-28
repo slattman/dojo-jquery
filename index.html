@@ -17,8 +17,15 @@
       </header>
       <section>
         <header></header>
+        <form>
+          <fieldset>
+            <label for=test>Test</label>
+            <input id=test type=text name=text value="test" class="test" />
+          </fieldset>
+        </form>
       </section>
     </article>
+
     <script>
         require(["./dojo/jquery"], function($) {
           window.$ = $;
@@ -39,5 +46,6 @@
           });
         });
     </script>
+
   </body>
 </html>
