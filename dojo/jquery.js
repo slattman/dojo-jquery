@@ -63,7 +63,7 @@ define([
 		css: function() {
 			if (typeof arguments[0] == "string")
 				this.style(arguments[0], arguments[1]);
-			if (typeof arguments[0] == "object") {}
+			if (typeof arguments[0] == "object")
 				this.style(arguments[0]);
 			return this;
 		},
