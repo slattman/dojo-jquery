@@ -31,8 +31,6 @@ define([
 	"dojo/NodeList-manipulate"
 ], function(dojo, array, lang, baseFx, ready, dquery, has, dom, style, cls, construct, on, fx, loader, defaultEngine){
 
-	console.log(array);
-
 	"use strict";
 
 	var version = 0.01;
@@ -72,13 +70,74 @@ define([
 		splice: Array.splice,
 		ready: ready,
 
+		/* effects */
+		fadeIn: function() {
+			this.forEach(function(node) {
+				baseFx.fadeIn({node:node}).play();
+			});
+			return this;
+		},
+		fadeOut: function() {
+			this.forEach(function(node) {
+				baseFx.fadeOut({node:node}).play();
+			});
+			return this;
+		},
+		fadeToggle: function(){
+			this.forEach(function(node) {
+				if (node.style.opacity == 1 || node.style.opacity == "") 
+					baseFx.fadeOut({node:node}).play();
+				else baseFx.fadeIn({node:node}).play();
+			});
+			return this;
+		},
+		hide: function(node) {
+			return this.query(node).style("display", "none");
+		},
+		show: function(node) {
+			return this.query(node).style("display", "block");
+		},
 
+		/* events */
+		click: function(callback) {
+			this.forEach(function(node) {
+				on(node, 'click', callback);
+			});
+			return this;
+		},
+		load: function(callback) {
+			this.forEach(function(node) {
+				on(node, 'load', callback);
+			});
+			return this;
+		},
+
+		/* attribues */
+		css: function() {
+			if (typeof arguments[0] == "string")
+				this.style(arguments[0], arguments[1]);
+			if (typeof arguments[0] == "object")
+				this.style(arguments[0]);
+			return this;
+		},
+		hasClass: function(clsName) {
+			for (var i in this)
+				if (cls.contains(this[i], clsName)) return true;
+			return false;
+		},
+		height: function(h) {
+			if (h) return this.style("height", h);
+			return this.style("height");
+		},
+		width: function(w) {
+			if (w) return this.style("width", w);
+			return this.style("width")[0];
+		},
 		val: function(value) {
 			var hooks, ret, isFunction,
 				elem = this[0],
 				rreturn = /\r/g
 			;
-			console.log(this);
 			if (!arguments.length) {
 				if (elem) {
 					hooks = this.valHooks[elem.type] || this.valHooks[elem.nodeName.toLowerCase()];
@@ -104,7 +163,6 @@ define([
 					this.value = val;
 			});
 		},
-
 		valHooks: {
 			option: {
 				get: function(elem) {
@@ -164,66 +222,8 @@ define([
 			}
 		},
 
+		/* traversal */
 		find: function(query) { return this.query(query); },
-
-		css: function() {
-			if (typeof arguments[0] == "string")
-				this.style(arguments[0], arguments[1]);
-			if (typeof arguments[0] == "object")
-				this.style(arguments[0]);
-			return this;
-		},
-		hasClass: function(clsName) {
-			for (var i in this)
-				if (cls.contains(this[i], clsName)) return true;
-			return false;
-		},
-		height: function(h) {
-			if (h) return this.style("height", h);
-			return this.style("height");
-		},
-		width: function(w) {
-			if (w) return this.style("width", w);
-			return this.style("width")[0];
-		},
-		fadeIn: function() {
-			this.forEach(function(node) {
-				baseFx.fadeIn({node:node}).play();
-			});
-			return this;
-		},
-		fadeOut: function() {
-			this.forEach(function(node) {
-				baseFx.fadeOut({node:node}).play();
-			});
-			return this;
-		},
-		fadeToggle: function(){
-			this.forEach(function(node) {
-				if (node.style.opacity == 1 || node.style.opacity == "") 
-					baseFx.fadeOut({node:node}).play();
-				else baseFx.fadeIn({node:node}).play();
-			});
-			return this;
-		},
-		hide: function(node) {
-			return this.query(node).style("display", "none");
-		},
-		show: function(node) {
-			return this.query(node).style("display", "block");
-		},
-		click: function(callback) {
-			this.forEach(function(node) {
-				on(node, 'click', callback);
-			});
-			return this;
-		},
-		load: function(callback) {
-			this.forEach(function(node) {
-				on(node, 'load', callback);
-			});
-			return this;
-		},
 
 		/*
 
@@ -261,7 +261,6 @@ define([
 		mouseover: function(){},
 		mouseup: function(){},
 		off: function(){},
-		on: function(){},
 		one: function(){},
 		resize: function(){},
 		scroll: function(){},
@@ -285,29 +284,14 @@ define([
 		add: function(){},
 		addBack: function(){},
 		andSelf: function(){},
-		children: function(){},
-		closest: function(){},
 		content: function(){},
-		end: function(){},
-		eq: function(){},
 		filter: function(){},
-		first: function(){},
 		has: function(){},
 		is: function(){},
-		last: function(){},
-		map: function(){},
-		next: function(){},
-		nextAll: function(){},
 		nextUntil: function(){},
 		not: function(){},
-		parent: function(){},
-		parents: function(){},
 		parentsUntil: function(){},
-		prev: function(){},
-		prevAll: function(){},
-		orevUntil: function(){},
-		siblings: function(){},
-		slice: function(){},
+		prevUntil: function(){},
 		prop: function() {},
 		removeProp: function() {},
 
