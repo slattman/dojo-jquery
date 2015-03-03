@@ -70,6 +70,7 @@ define([
 		push: Array.push,
 		sort: Array.sort,
 		splice: Array.splice,
+		ready: ready,
 
 
 		val: function(value) {
@@ -162,8 +163,6 @@ define([
 				}
 			}
 		},
-
-		ready: ready,
 
 		find: function(query) { return this.query(query); },
 
