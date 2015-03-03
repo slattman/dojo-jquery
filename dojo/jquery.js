@@ -565,7 +565,7 @@ define([
 		selector: function(){},
 		contains: function(){},
 		parseHTML: function(){},
-		parseJSON: function(){},
+		parseJSON: function(json){ return dojo.fromJson(json); },
 		parseXML: function(){},
 		isXMLDoc: function(){},
 		queue: function(){},
